@@ -50,7 +50,8 @@
     <Compile Include="AssemblyInfo.fs" />
     <None Include="App.config" />
     <Compile Include="Node.fs" />
-    <Compile Include="network.fs" />
+    <Compile Include="Network.fs" />
+    <Compile Include="GeneticTrainer.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <PropertyGroup>

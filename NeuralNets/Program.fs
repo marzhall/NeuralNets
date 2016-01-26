@@ -2,6 +2,7 @@
 // See the 'F# Tutorial' project for more help.
 open Network.Network
 open System.Linq
+open Network.GeneticTrainer
 
 type side = Left | Right
     with override this.ToString() =
@@ -17,15 +18,6 @@ let generateRandomNumberPairs (count : int) =
     let pairs = List.zip (generateRandomList(rnd)) (generateRandomList(rnd))
     List.map (fun pair -> (maxValueInPair(pair)), pair) pairs
 
-let rec trainGenerations (numGenerations:int) (seedNetwork : Network)  (generationSize:int) (testInputs: (side*(float*float)) list) (learningRate:double) trainingFunction =
-    let testGeneration =
-        let generation = List.init generationSize (fun _ -> seedNetwork.mutatedClone(learningRate))
-        let best = List.maxBy (trainingFunction testInputs) (seedNetwork::generation)
-        best
-    match numGenerations with
-        | x  when x <= 0 -> testGeneration
-        | x              -> testGeneration |> (fun x -> trainGenerations (numGenerations - 1) x generationSize testInputs (learningRate*(0.86)) trainingFunction)
-        
 let personalTrainer inputs (network: Network) =
     let difference one two = if (one > two) then one - two else two - one 
     let result = List.fold (fun acc (biggest, (left, right)) -> if ((maxValueInOutput (network.feedForward([left;right]))) = biggest) then (acc + 1.0 + difference left right) else acc) 0.0 inputs
