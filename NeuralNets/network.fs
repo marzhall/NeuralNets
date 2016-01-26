@@ -2,7 +2,7 @@
 
 open NeuralNet
 
-module network =
+module Network =
     type Network(layersSizes:int list) =
         let rnd = new System.Random()
         member val layers = List.map (fun (x:int) -> Array.toList [| for i in 1 .. x -> new NeuralNet.Node.Node(rnd)|]) layersSizes with get, set

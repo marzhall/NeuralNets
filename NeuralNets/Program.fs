@@ -1,6 +1,6 @@
 ﻿// Learn more about F# at http://fsharp.org
 // See the 'F# Tutorial' project for more help.
-open Network.network
+open Network.Network
 open System.Linq
 
 type side = Left | Right
@@ -35,7 +35,7 @@ let personalTrainer (writer:System.IO.StreamWriter) inputs (network: Network) =
 [<EntryPoint>]
 let main argv =
     let outFile = new System.IO.StreamWriter("C:\Users\marshall\Desktop\\funStuff\lol.txt")
-    let newNet = Network.network.Network([2])
+    let newNet = Network.Network.Network([2])
     let inputs = (generateRandomNumberPairs 1000)
     let test = (generateRandomNumberPairs 1000000)
     let result = trainGenerations 30 newNet 100 inputs 1.0 (personalTrainer outFile)
