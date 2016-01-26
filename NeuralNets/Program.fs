@@ -26,22 +26,18 @@ let rec trainGenerations (numGenerations:int) (seedNetwork : Network)  (generati
         | x  when x <= 0 -> testGeneration
         | x              -> testGeneration |> (fun x -> trainGenerations (numGenerations - 1) x generationSize testInputs (learningRate*(0.86)) trainingFunction)
         
-let personalTrainer (writer:System.IO.StreamWriter) inputs (network: Network) =
+let personalTrainer inputs (network: Network) =
     let difference one two = if (one > two) then one - two else two - one 
     let result = List.fold (fun acc (biggest, (left, right)) -> if ((maxValueInOutput (network.feedForward([left;right]))) = biggest) then (acc + 1.0 + difference left right) else acc) 0.0 inputs
-    writer.WriteLine(result.ToString() + (network.ToString()))
     result
             
 [<EntryPoint>]
 let main argv =
-    let outFile = new System.IO.StreamWriter("C:\Users\marshall\Desktop\\funStuff\lol.txt")
     let newNet = Network.Network.Network([2])
     let inputs = (generateRandomNumberPairs 1000)
     let test = (generateRandomNumberPairs 1000000)
-    let result = trainGenerations 30 newNet 100 inputs 1.0 (personalTrainer outFile)
+    let result = trainGenerations 30 newNet 100 inputs 1.0 (personalTrainer)
     let sum = List.fold (fun acc (biggest, (left, right)) -> if ((maxValueInOutput (result.feedForward([left;right]))) = biggest) then acc + 1 else acc) 0 test
-    outFile.WriteLine("{0}", (sum))
-    outFile.Flush()
     printfn "%A" sum
     printfn "%A" (result.feedForward([0.0; 1.0]))
     printfn "%A" (result.feedForward([1.0; 0.0]))
