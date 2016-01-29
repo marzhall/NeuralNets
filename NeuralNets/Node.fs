@@ -19,8 +19,8 @@ module Node =
             result
         member this.calcCharge(layer:float list) =
             this.weights <- (if (this.weights = []) then getRandomFloats (List.length(layer)) else this.weights)
-            let result = this.bias + List.sumBy(fun (x:float, y:float) -> x*y) (List.zip layer this.weights) in
             let sigmoid (x:float) = 1.0 / (1.0 + System.Math.Exp(x))
+            let result = this.bias + List.sumBy(fun (x:float, y:float) -> x*y) (List.zip layer this.weights) in
             sigmoid(result)
         with override this.ToString() = 
                (sprintf "{Node bias: %A, nodes: %A}" this.bias this.weights)

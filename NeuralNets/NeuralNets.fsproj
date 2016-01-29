@@ -52,6 +52,7 @@
     <Compile Include="Node.fs" />
     <Compile Include="Network.fs" />
     <Compile Include="GeneticTrainer.fs" />
+    <Compile Include="pictureReader.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <PropertyGroup>
