@@ -20,7 +20,7 @@ module pictureReader =
                                                 | _ -> Mismatch
     
 
-    let make4ByteArrayFromByte value = List.toArray [Byte(); Byte(); Byte(); value]
+    let make4ByteArrayFromByte value = List.toArray [value; Byte(); Byte(); Byte()]
     let byteArrayToFloatArray (byteArray : Byte []) = Array.Parallel.map (fun x -> (float (BitConverter.ToInt32((make4ByteArrayFromByte x), 0)))/255.0) byteArray
     
     let mnistLabelReader filename =
