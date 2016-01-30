@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="pictureReader.fs" />
+    <Compile Include="TrainingFunction.fs" />
     <Compile Include="Program.fs" />
     <None Include="App.config" />
   </ItemGroup>

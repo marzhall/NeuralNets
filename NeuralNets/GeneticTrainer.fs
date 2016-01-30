@@ -3,10 +3,11 @@
 open Network.Network
 
 module GeneticTrainer =
-    let rec trainGenerations (numGenerations:int) (seedNetwork:Network)  (generationSize:int) (testInputs: 'a list) (learningRate:double) (trainingFunction : (('a list) -> Network.Network.Network -> 'b)) =
+    let rec trainGenerations (numGenerations:int) (seedNetwork:Network)  (generationSize:int) (testInputs: 'a []) (learningRate:double) (trainingFunction : (('a []) -> Network.Network.Network -> 'b)) =
         let testGeneration =
-            let generation = List.init generationSize (fun _ -> seedNetwork.mutatedClone(learningRate))
-            let best = List.maxBy (trainingFunction testInputs) (seedNetwork::generation)
+            let generation = Array.Parallel.init generationSize (fun _ -> seedNetwork.mutatedClone(learningRate))
+            let best = Array.maxBy (trainingFunction testInputs) (generation)
+            printfn "Generation %A Done." numGenerations
             best
         match numGenerations with
             | x  when x <= 0 -> testGeneration
